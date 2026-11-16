@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0f5e6b">
+<title>Ouça a ficha · Kit Alfabetização EJA</title>
+<!-- Página que o QR Code das fichas abre: /o/#m1a1a toca a/m1a1a.m4a.
+     Feita para quem ainda não lê: um botão enorme, desenhos no lugar de palavras.
+     O endereço /o/#codigo NUNCA pode mudar, porque está impresso nas folhas. -->
+<style>
+  :root { --marca: #0f5e6b; --verde: #15803d; --fundo: #f6f8f8; --texto: #1f2937; --suave: #5b6670; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--fundo); color: var(--texto); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+         padding: 24px 16px max(24px, env(safe-area-inset-bottom)); text-align: center; -webkit-tap-highlight-color: transparent; }
+  .fone { width: 64px; height: 64px; color: var(--marca); }
+  #tocar { width: min(64vw, 260px); aspect-ratio: 1; border-radius: 50%; border: 0; background: var(--verde); color: #fff;
+           display: grid; place-items: center; cursor: pointer; position: relative;
+           box-shadow: 0 10px 30px rgba(21, 128, 61, .35); touch-action: manipulation; }
+  #tocar:active { transform: scale(.97); }
+  #tocar:focus-visible { outline: 5px solid var(--marca); outline-offset: 6px; }
+  #tocar svg.icone { width: 46%; height: 46%; }
+  #tocar.tocando { animation: pulso 1.6s ease-in-out infinite; }
+  @keyframes pulso { 50% { box-shadow: 0 10px 30px rgba(21, 128, 61, .35), 0 0 0 18px rgba(21, 128, 61, .15); } }
+  @media (prefers-reduced-motion: reduce) { #tocar.tocando { animation: none; } }
+  .anel { position: absolute; inset: -10px; width: calc(100% + 20px); height: calc(100% + 20px); transform: rotate(-90deg); pointer-events: none; }
+  .anel circle { fill: none; stroke-width: 6; }
+  .anel .trilho { stroke: #d7e3e5; }
+  .anel .feito { stroke: var(--marca); stroke-linecap: round; transition: stroke-dashoffset .25s linear; }
+  .de-novo { display: none; align-items: center; gap: 10px; border: 2px solid var(--marca); background: #fff; color: var(--marca);
+             font: inherit; font-size: 20px; font-weight: 700; padding: 12px 22px; border-radius: 999px; cursor: pointer; }
+  .de-novo svg { width: 28px; height: 28px; }
+  body.terminou .de-novo { display: inline-flex; }
+  .ficha { font-size: 15px; color: var(--suave); letter-spacing: .02em; }
+  .ficha b { color: var(--texto); }
+  .erro { display: none; max-width: 340px; font-size: 19px; line-height: 1.45; }
+  body.sem-audio #tocar, body.sem-audio .de-novo { display: none; }
+  body.sem-audio .erro { display: block; }
+  .erro > svg { width: 96px; height: 96px; color: var(--marca); display: block; margin: 0 auto 12px; }
+  #tentar { display: grid; place-items: center; margin: 24px auto 0; width: 132px; height: 132px; border-radius: 50%; border: 0;
+            background: var(--marca); color: #fff; cursor: pointer; touch-action: manipulation; }
+  #tentar svg { width: 56px; height: 56px; }
+</style>
+</head>
+<body>
+  <svg class="fone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/>
+  </svg>
+
+  <button id="tocar" type="button" aria-label="Ouvir a ficha">
+    <svg class="anel" viewBox="0 0 100 100" aria-hidden="true"><circle class="trilho" cx="50" cy="50" r="47"/>
+      <circle class="feito" cx="50" cy="50" r="47" stroke-dasharray="295.3" stroke-dashoffset="295.3"/></svg>
+    <svg class="icone" id="ic-tocar" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
+    <svg class="icone" id="ic-pausa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><rect x="5" y="4" width="5" height="16" rx="1.5"/><rect x="14" y="4" width="5" height="16" rx="1.5"/></svg>
+  </button>
+
+  <button class="de-novo" type="button" aria-label="Ouvir de novo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+    De novo
+  </button>
+
+  <div class="ficha" id="ficha"></div>
+
+  <div class="erro" role="alert">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h3v-3"/>
+    </svg>
+    Não achei o áudio desta ficha. Aponte a câmera de novo para o quadradinho da folha.
+    <button id="tentar" type="button" aria-label="Tentar de novo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+    </button>
+  </div>
+
+  <audio id="voz" preload="metadata"></audio>
+
+<script>
+(function () {
+  // Outro QR Code lido com esta página aberta só troca o "#": recarrega para tocar a ficha nova.
+  window.addEventListener("hashchange", function () { location.reload(); });
+  var codigo = (location.hash || "").replace("#", "").toLowerCase();
+  var voz = document.getElementById("voz");
+  var botao = document.getElementById("tocar");
+  var deNovo = document.querySelector(".de-novo");
+  var anel = document.querySelector(".anel .feito");
+  var ficha = document.getElementById("ficha");
+  var TOTAL = 295.3;
+
+  function semAudio() { document.body.classList.add("sem-audio"); }
+  // Quem não lê o aviso aperta o botão redondo: ouve a mesma orientação em voz e a página tenta de novo.
+  document.getElementById("tentar").addEventListener("click", function () {
+    var ajuda = new Audio("a/ajuda.m4a");
+    var recarregar = function () { location.reload(); };
+    ajuda.addEventListener("ended", recarregar);
+    ajuda.addEventListener("error", recarregar);
+    var p = ajuda.play();
+    if (p && p.catch) p.catch(recarregar);
+  });
+
+  // Só aceita códigos como m1a1a (módulo, aula, nível). Qualquer outra coisa mostra o aviso.
+  var partes = /^m(\d{1,2})a(\d{1,2})([abc])$/.exec(codigo);
+  if (!partes) { semAudio(); return; }
+  ficha.innerHTML = "Módulo <b>" + partes[1] + "</b> · Aula <b>" + partes[2] + "</b> · Nível <b>" + partes[3].toUpperCase() + "</b>";
+  voz.src = "a/" + codigo + ".m4a";
+
+  function mostrar(tocando) {
+    botao.classList.toggle("tocando", tocando);
+    document.getElementById("ic-tocar").style.display = tocando ? "none" : "";
+    document.getElementById("ic-pausa").style.display = tocando ? "" : "none";
+    botao.setAttribute("aria-label", tocando ? "Pausar" : "Ouvir a ficha");
+  }
+  function tocar() {
+    document.body.classList.remove("terminou");
+    var p = voz.play();
+    if (p && p.catch) p.catch(function () { mostrar(false); });
+  }
+  botao.addEventListener("click", function () { if (voz.paused) tocar(); else voz.pause(); });
+  deNovo.addEventListener("click", function () { voz.currentTime = 0; tocar(); });
+  voz.addEventListener("play", function () { mostrar(true); });
+  voz.addEventListener("pause", function () { mostrar(false); });
+  voz.addEventListener("ended", function () { mostrar(false); document.body.classList.add("terminou"); });
+  voz.addEventListener("timeupdate", function () {
+    if (voz.duration) anel.style.strokeDashoffset = String(TOTAL * (1 - voz.currentTime / voz.duration));
+  });
+  voz.addEventListener("error", semAudio);
+})();
+</script>
+</body>
+</html>
