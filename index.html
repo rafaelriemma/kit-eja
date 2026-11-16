@@ -146,7 +146,7 @@ fbq('track', 'PageView');
     <h3>Livro 1 · Kit do professor (206 páginas)</h3>
     <ul>
       <li><b>40 aulas prontas</b> em 8 módulos, cada uma com plano de aula e respostas.</li>
-      <li><b>120 fichas em 3 níveis</b> do mesmo conteúdo, para a turma toda avançar junta.</li>
+      <li><b>120 fichas em 3 níveis</b> do mesmo conteúdo, para a turma toda avançar junta. Cada ficha tem um <b>QR Code com áudio</b>.</li>
       <li><b>Sondagem</b> para descobrir a fase de cada aluno, <b>8 avaliações</b> (uma por módulo) e <b>certificado de avanço</b>.</li>
     </ul>
   </div>
@@ -159,10 +159,16 @@ fbq('track', 'PageView');
     </ul>
   </div>
 
+  <div class="caixa" data-testid="qr-audio">
+    <h3>Com o professor ou sem ele: cada ficha fala</h3>
+    <p>O material pode ser seguido em aula, com o professor. Mas também dá autonomia ao aluno: no canto de cada ficha há um <b>QR Code</b>. Ele aponta a câmera do celular e <b>ouve a orientação do que fazer naquela página</b>, numa voz calma, tarefa por tarefa.</p>
+    <p style="margin:0">Assim, quem ainda não lê consegue começar a atividade mesmo sem alguém do lado. <a href="o/#m1a1a" target="_blank" rel="noopener" data-testid="ouvir-exemplo">Ouça o áudio da primeira ficha</a> (precisa de celular com internet).</p>
+  </div>
+
   <h3 style="margin:18px 0 8px">Veja algumas páginas</h3>
   <div class="galeria" data-testid="galeria">
     <figure><img src="img/k-p4.jpg" alt="Página dos símbolos" loading="lazy"><figcaption>Cada desenho é uma ordem: o aluno entende o que fazer sem ler.</figcaption></figure>
-    <figure><img src="img/k-p13.jpg" alt="Ficha Meu nome" loading="lazy"><figcaption>O primeiro item vem feito em verde: é só fazer igual.</figcaption></figure>
+    <figure><img src="img/k-p14.jpg" alt="Ficha Meu nome, com QR Code no canto" loading="lazy"><figcaption>O QR Code no canto lê a ficha em voz alta, e o primeiro item vem feito em verde.</figcaption></figure>
     <figure><img src="img/c-p31.jpg" alt="Treino da letra A" loading="lazy"><figcaption>Letra com a ordem dos traços e o apoio diminuindo a cada linha.</figcaption></figure>
     <figure><img src="img/c-p172.jpg" alt="Que ônibus eu pego" loading="lazy"><figcaption>Leitura do mundo: o letreiro do ônibus.</figcaption></figure>
     <figure><img src="img/k-p117.jpg" alt="Conta de luz" loading="lazy"><figcaption>Ler a conta de luz: vencimento e valor.</figcaption></figure>
@@ -201,7 +207,8 @@ fbq('track', 'PageView');
   <h3 style="margin:18px 0 8px">Perguntas frequentes</h3>
   <details><summary>Como recebo o material?</summary><p>Por e-mail, logo depois da confirmação do pagamento, com acesso à área de membros para baixar os PDFs.</p></details>
   <details><summary>Posso imprimir quantas vezes quiser?</summary><p>Sim, para os seus alunos. A licença é individual: cada professor ou pessoa que ensina usa a sua cópia. Não pode revender nem compartilhar o arquivo.</p></details>
-  <details><summary>Serve para quem ensina em casa?</summary><p>Serve. As fichas guiam o aluno com símbolos e exemplos, e o caderno explica como começar, como segurar o lápis e como usar a escada de apoio.</p></details>
+  <details><summary>Serve para quem ensina em casa?</summary><p>Serve. As fichas guiam o aluno com símbolos, exemplos e o áudio do QR Code, e o caderno explica como começar, como segurar o lápis e como usar a escada de apoio.</p></details>
+  <details><summary>Como funciona o QR Code das fichas?</summary><p>O aluno aponta a câmera do celular para o QR Code no canto da ficha, toca no link que aparece e aperta o botão grande para ouvir. A voz lê a ficha e explica cada tarefa. Precisa de celular com internet; não precisa instalar nada. As páginas do Livro 2 (caderno) não têm áudio.</p></details>
   <details><summary>Tem versão que gasta menos tinta?</summary><p>Tem. Os dois livros vêm também em preto e branco.</p></details>
   <details><summary>O material é para criança?</summary><p>Não. Os temas são de adulto: documentos, trabalho, mercado, ônibus, contas e dinheiro.</p></details>
 
@@ -274,7 +281,7 @@ fbq('track', 'PageView');
             palavras: "Como ele já lê palavras, o foco vai para as sílabas, as frases e a leitura do mundo: placas, contas e mensagens.",
             mista: "Com alunos em fases diferentes, a sondagem do Livro 1 mostra a fase de cada um, e as fichas A, B e C atendem todos na mesma aula." },
     dor: { infantil: "Sobre o material infantil: aqui os temas são de adulto, como documentos, trabalho, mercado, ônibus e contas.",
-           sozinho: "Para o aluno fazer sozinho: cada ação tem um símbolo e o primeiro item de cada atividade já vem feito em verde.",
+           sozinho: "Para o aluno fazer sem alguém do lado: cada ficha tem um QR Code que lê em voz alta o que fazer, cada ação tem um símbolo e o primeiro item já vem feito em verde.",
            tempo: "Para economizar tempo: cada aula já tem plano de 1 página, roteiro de 50 minutos e as respostas.",
            mao: "Para dar firmeza à mão: o caderno começa nos traços e sobe, com o apoio diminuindo, até a letra de mão." },
     ritmo: { diario: "Estudando quase todo dia, uma página do caderno por dia já faz muita diferença.",
